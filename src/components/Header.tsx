@@ -85,8 +85,7 @@ export function Header() {
       </header>
 
       <div
-        className={`fixed inset-0 z-50 transition ${mobileOpen ? "visible" : "invisible"}`}
-        {...(!mobileOpen ? { inert: "" } : {})}
+        className={`fixed inset-0 transition ${mobileOpen ? "z-50 visible" : "-z-10 invisible pointer-events-none"}`}
       >
         <div
           className={`absolute inset-0 bg-foreground/40 transition-opacity duration-300 ${mobileOpen ? "opacity-100" : "opacity-0"}`}

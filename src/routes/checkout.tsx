@@ -124,7 +124,7 @@ function CheckoutPage() {
         <h1 className="mt-2 font-serif text-3xl md:text-4xl">Selesaikan Pesanan</h1>
       </div>
 
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} autoComplete="off">
         <div className="grid gap-10 lg:grid-cols-[1fr_400px]">
           {/* LEFT COLUMN */}
           <div className="space-y-8">
@@ -139,6 +139,7 @@ function CheckoutPage() {
                   <Input
                     id="namaLengkap"
                     name="namaLengkap"
+                    autoComplete="nope"
                     placeholder="Masukkan nama lengkap"
                     required
                     minLength={3}
@@ -150,6 +151,7 @@ function CheckoutPage() {
                     <Input
                       id="whatsapp"
                       name="whatsapp"
+                      autoComplete="nope"
                       placeholder="08xxxxxxxxxx"
                       required
                       minLength={10}
@@ -161,6 +163,7 @@ function CheckoutPage() {
                       id="email"
                       name="email"
                       type="email"
+                      autoComplete="nope"
                       placeholder="email@kamu.com"
                       required
                     />
@@ -180,6 +183,7 @@ function CheckoutPage() {
                   <Textarea
                     id="alamat"
                     name="alamat"
+                    autoComplete="nope"
                     placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan..."
                     required
                     minLength={10}
@@ -191,6 +195,7 @@ function CheckoutPage() {
                     <Input
                       id="kecamatan"
                       name="kecamatan"
+                      autoComplete="nope"
                       placeholder="Nama kecamatan"
                       required
                       minLength={3}
@@ -201,6 +206,7 @@ function CheckoutPage() {
                     <Input
                       id="kota"
                       name="kota"
+                      autoComplete="nope"
                       placeholder="Nama kota/kabupaten"
                       required
                       minLength={3}
@@ -215,6 +221,7 @@ function CheckoutPage() {
                         id="provinsi"
                         name="provinsi"
                         required
+                        autoComplete="nope"
                         className="flex h-11 w-full appearance-none rounded-sm border border-border bg-background px-4 py-2 pr-10 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                       >
                         <option value="">Pilih provinsi</option>
@@ -230,6 +237,7 @@ function CheckoutPage() {
                     <Input
                       id="kodePos"
                       name="kodePos"
+                      autoComplete="nope"
                       placeholder="12345"
                       maxLength={5}
                       required
