@@ -1,11 +1,9 @@
 export function registerPWA() {
   if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-    import('virtual:pwa-register')
-      .then(({ registerSW }) => {
-        registerSW({ immediate: true });
-      })
-      .catch((err) => {
-        console.error('Failed to register PWA:', err);
-      });
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for(let registration of registrations) {
+        registration.unregister();
+      }
+    });
   }
 }
