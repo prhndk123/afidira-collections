@@ -1,0 +1,274 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Afidira design system
+ * Warm neutral palette, editorial boutique feel.
+ * Serif display (Cormorant) + sans body (Inter).
+ */
+
+@theme inline {
+  --font-serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 4px;
+  --radius-xl: 8px;
+  --radius-2xl: 12px;
+  --radius-3xl: 16px;
+  --radius-pill: 9999px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+}
+
+:root {
+  --radius: 0.125rem;
+
+  /* Warm neutral CULTURE palette */
+  --background: oklch(1 0 0); /* #FFFFFF */
+  --foreground: oklch(0.18 0.005 60); /* #1A1A1A */
+  --surface: oklch(0.965 0.008 75); /* #F6F4F1 cream */
+  --muted: oklch(0.965 0.008 75);
+  --muted-foreground: oklch(0.5 0.01 60); /* #7A7A7A */
+  --border: oklch(0.91 0.008 75); /* #E5E2DD */
+  --input: oklch(0.91 0.008 75);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.005 60);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.005 60);
+
+  --primary: oklch(0.18 0.005 60); /* near-black */
+  --primary-foreground: oklch(0.98 0.005 75);
+
+  --secondary: oklch(0.965 0.008 75);
+  --secondary-foreground: oklch(0.18 0.005 60);
+
+  --accent: oklch(0.72 0.04 65); /* taupe-gold #B89B7E */
+  --accent-foreground: oklch(0.18 0.005 60);
+
+  --success: oklch(0.55 0.08 155); /* #3E7D5A */
+  --warning: oklch(0.7 0.13 80); /* #C9962E */
+
+  --destructive: oklch(0.55 0.18 25); /* #C0392B */
+  --destructive-foreground: oklch(0.98 0.005 75);
+
+  --ring: oklch(0.72 0.04 65);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-foreground);
+  }
+
+  .nav-link {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-foreground);
+    transition: color 200ms ease;
+  }
+  .nav-link:hover {
+    color: var(--color-accent);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    padding: 0 28px;
+    background: var(--color-foreground);
+    color: var(--color-primary-foreground);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    border-radius: 2px;
+    transition:
+      background 220ms ease,
+      transform 220ms ease;
+    cursor: pointer;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-accent);
+  }
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    padding: 0 28px;
+    background: transparent;
+    color: var(--color-foreground);
+    border: 1px solid var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    border-radius: 2px;
+    transition: all 220ms ease;
+    cursor: pointer;
+  }
+  .btn-outline:hover {
+    background: var(--color-foreground);
+    color: var(--color-primary-foreground);
+  }
+
+  .text-link {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-foreground);
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--color-foreground);
+    transition:
+      color 200ms,
+      border-color 200ms;
+  }
+  .text-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .container-page {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+  @media (min-width: 1024px) {
+    .container-page {
+      padding-inline: 40px;
+    }
+  }
+
+  .tile-image {
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+  .tile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 600ms ease;
+  }
+  .tile-image:hover img {
+    transform: scale(1.04);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: reveal 700ms ease forwards;
+  }
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - 1.5rem));
+    }
+  }
+  @media (min-width: 768px) {
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(calc(-100% - 2rem));
+      }
+    }
+  }
+  .animate-marquee {
+    animation: marquee 35s linear infinite;
+  }
+}

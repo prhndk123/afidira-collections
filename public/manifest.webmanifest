@@ -1,0 +1,28 @@
+{
+  "name": "Afidira Collection",
+  "short_name": "Afidira",
+  "description": "Afidira Collection App",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "afidira-icon.png",
+      "sizes": "any",
+      "type": "image/png"
+    },
+    {
+      "src": "afidira-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "afidira-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
