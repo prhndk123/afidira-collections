@@ -1,16 +1,25 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { X, Minus, Plus } from "lucide-react";
 import { useCart, formatPrice } from "@/lib/cart";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function CartDrawer() {
   const { isOpen, close, items, setQty, remove, total } = useCart();
   const navigate = useNavigate();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
+  const [isRendered, setIsRendered] = useState(isOpen);
+
+  useEffect(() => {
+    if (isOpen) setIsRendered(true);
+    else {
+      const timer = setTimeout(() => setIsRendered(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen) return;
-    // Move focus to close button when drawer opens to prevent focus trap
     const timer = setTimeout(() => closeButtonRef.current?.focus(), 50);
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
     document.addEventListener("keydown", onKey);
@@ -21,6 +30,8 @@ export function CartDrawer() {
       document.body.style.overflow = "";
     };
   }, [isOpen, close]);
+
+  if (!isRendered) return null;
 
   return (
     <div
