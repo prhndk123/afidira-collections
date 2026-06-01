@@ -84,10 +84,9 @@ export function Header() {
         </div>
       </header>
 
-      {/* Mobile slide-in nav */}
       <div
         className={`fixed inset-0 z-50 transition ${mobileOpen ? "visible" : "invisible"}`}
-        aria-hidden={!mobileOpen}
+        {...(!mobileOpen ? { inert: "" } : {})}
       >
         <div
           className={`absolute inset-0 bg-foreground/40 transition-opacity duration-300 ${mobileOpen ? "opacity-100" : "opacity-0"}`}

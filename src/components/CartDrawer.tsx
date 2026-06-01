@@ -24,9 +24,7 @@ export function CartDrawer() {
 
   return (
     <div
-      className={`fixed inset-0 z-50 transition-all duration-300 ${isOpen ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"}`}
-      // inert blocks ALL interactions + focus when drawer is closed (better than aria-hidden)
-      {...(!isOpen ? { inert: "" } : {})}
+      className={`fixed inset-0 transition-all duration-300 ${isOpen ? "z-50 visible opacity-100" : "-z-10 invisible opacity-0 pointer-events-none"}`}
     >
       <div
         className={`absolute inset-0 bg-foreground/40 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
@@ -114,7 +112,14 @@ export function CartDrawer() {
               <div className="mt-5 flex flex-col gap-2">
                 <button
                   className="btn-primary w-full"
-                  onClick={() => { close(); navigate({ to: "/checkout" }); }}
+                  onClick={(e) => {
+                    e.currentTarget.blur();
+                    if (document.activeElement instanceof HTMLElement) {
+                      document.activeElement.blur();
+                    }
+                    close();
+                    navigate({ to: "/checkout" });
+                  }}
                 >
                   Checkout
                 </button>
