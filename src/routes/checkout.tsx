@@ -1,8 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useRef } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Upload, CheckCircle2, ChevronDown, CreditCard } from "lucide-react";
 import { useCart, formatPrice } from "@/lib/cart";
 import { Input } from "@/components/ui/input";
@@ -67,19 +64,6 @@ const PROVINSI = [
   "Maluku", "Maluku Utara", "Papua Barat", "Papua",
 ];
 
-const schema = z.object({
-  namaLengkap: z.string().min(3, "Nama minimal 3 karakter"),
-  whatsapp: z.string().min(10, "Nomor WhatsApp tidak valid").max(15),
-  email: z.string().email("Format email tidak valid"),
-  alamat: z.string().min(10, "Alamat terlalu singkat"),
-  kecamatan: z.string().min(3, "Kecamatan wajib diisi"),
-  kota: z.string().min(3, "Kota wajib diisi"),
-  provinsi: z.string().min(1, "Pilih provinsi"),
-  kodePos: z.string().length(5, "Kode pos harus 5 digit"),
-});
-
-type FormData = z.infer<typeof schema>;
-
 function CheckoutPage() {
   const { items, total, clear } = useCart();
   const navigate = useNavigate();
@@ -92,12 +76,6 @@ function CheckoutPage() {
   const ongkir = total >= ONGKIR_GRATIS_MIN ? 0 : ONGKIR;
   const totalBayar = total + ongkir;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
-
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -107,7 +85,8 @@ function CheckoutPage() {
 
   const selectedBankData = BANKS.find((b) => b.id === selectedBank);
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!selectedBank) {
       alert("Silakan pilih metode pembayaran");
       return;
@@ -145,7 +124,7 @@ function CheckoutPage() {
         <h1 className="mt-2 font-serif text-3xl md:text-4xl">Selesaikan Pesanan</h1>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <div className="grid gap-10 lg:grid-cols-[1fr_400px]">
           {/* LEFT COLUMN */}
           <div className="space-y-8">
@@ -159,36 +138,32 @@ function CheckoutPage() {
                   <Label htmlFor="namaLengkap">Nama Lengkap</Label>
                   <Input
                     id="namaLengkap"
+                    name="namaLengkap"
                     placeholder="Masukkan nama lengkap"
-                    {...register("namaLengkap")}
+                    required
+                    minLength={3}
                   />
-                  {errors.namaLengkap && (
-                    <p className="text-xs text-destructive">{errors.namaLengkap.message}</p>
-                  )}
                 </div>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <Label htmlFor="whatsapp">No. WhatsApp</Label>
                     <Input
                       id="whatsapp"
+                      name="whatsapp"
                       placeholder="08xxxxxxxxxx"
-                      {...register("whatsapp")}
+                      required
+                      minLength={10}
                     />
-                    {errors.whatsapp && (
-                      <p className="text-xs text-destructive">{errors.whatsapp.message}</p>
-                    )}
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="email">Email</Label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder="email@kamu.com"
-                      {...register("email")}
+                      required
                     />
-                    {errors.email && (
-                      <p className="text-xs text-destructive">{errors.email.message}</p>
-                    )}
                   </div>
                 </div>
               </CardContent>
@@ -204,35 +179,32 @@ function CheckoutPage() {
                   <Label htmlFor="alamat">Alamat Lengkap</Label>
                   <Textarea
                     id="alamat"
+                    name="alamat"
                     placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan..."
-                    {...register("alamat")}
+                    required
+                    minLength={10}
                   />
-                  {errors.alamat && (
-                    <p className="text-xs text-destructive">{errors.alamat.message}</p>
-                  )}
                 </div>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <Label htmlFor="kecamatan">Kecamatan</Label>
                     <Input
                       id="kecamatan"
+                      name="kecamatan"
                       placeholder="Nama kecamatan"
-                      {...register("kecamatan")}
+                      required
+                      minLength={3}
                     />
-                    {errors.kecamatan && (
-                      <p className="text-xs text-destructive">{errors.kecamatan.message}</p>
-                    )}
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="kota">Kota / Kabupaten</Label>
                     <Input
                       id="kota"
+                      name="kota"
                       placeholder="Nama kota/kabupaten"
-                      {...register("kota")}
+                      required
+                      minLength={3}
                     />
-                    {errors.kota && (
-                      <p className="text-xs text-destructive">{errors.kota.message}</p>
-                    )}
                   </div>
                 </div>
                 <div className="grid gap-5 sm:grid-cols-2">
@@ -241,7 +213,8 @@ function CheckoutPage() {
                     <div className="relative">
                       <select
                         id="provinsi"
-                        {...register("provinsi")}
+                        name="provinsi"
+                        required
                         className="flex h-11 w-full appearance-none rounded-sm border border-border bg-background px-4 py-2 pr-10 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                       >
                         <option value="">Pilih provinsi</option>
@@ -251,21 +224,16 @@ function CheckoutPage() {
                       </select>
                       <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     </div>
-                    {errors.provinsi && (
-                      <p className="text-xs text-destructive">{errors.provinsi.message}</p>
-                    )}
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="kodePos">Kode Pos</Label>
                     <Input
                       id="kodePos"
+                      name="kodePos"
                       placeholder="12345"
                       maxLength={5}
-                      {...register("kodePos")}
+                      required
                     />
-                    {errors.kodePos && (
-                      <p className="text-xs text-destructive">{errors.kodePos.message}</p>
-                    )}
                   </div>
                 </div>
               </CardContent>
