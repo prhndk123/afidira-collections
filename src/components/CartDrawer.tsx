@@ -1,18 +1,22 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { X, Minus, Plus } from "lucide-react";
 import { useCart, formatPrice } from "@/lib/cart";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export function CartDrawer() {
   const { isOpen, close, items, setQty, remove, total } = useCart();
   const navigate = useNavigate();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!isOpen) return;
+    // Move focus to close button when drawer opens to prevent focus trap
+    const timer = setTimeout(() => closeButtonRef.current?.focus(), 50);
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
+      clearTimeout(timer);
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
@@ -21,7 +25,8 @@ export function CartDrawer() {
   return (
     <div
       className={`fixed inset-0 z-50 transition-all duration-300 ${isOpen ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"}`}
-      aria-hidden={!isOpen}
+      // inert blocks ALL interactions + focus when drawer is closed (better than aria-hidden)
+      {...(!isOpen ? { inert: "" } : {})}
     >
       <div
         className={`absolute inset-0 bg-foreground/40 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
@@ -30,11 +35,12 @@ export function CartDrawer() {
       <aside
         className={`absolute right-0 top-0 flex h-full w-full max-w-[420px] flex-col bg-background shadow-[-4px_0_24px_rgba(0,0,0,0.12)] transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
         role="dialog"
+        aria-modal="true"
         aria-label="Your cart"
       >
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
           <h2 className="eyebrow">Your Cart</h2>
-          <button aria-label="Close cart" onClick={close}>
+          <button ref={closeButtonRef} aria-label="Close cart" onClick={close}>
             <X strokeWidth={1.5} className="h-5 w-5" />
           </button>
         </div>
