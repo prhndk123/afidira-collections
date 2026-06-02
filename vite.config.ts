@@ -16,12 +16,5 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
       },
     }),
-    {
-      name: "force-exit-after-build",
-      apply: "build",
-      closeBundle() {
-        setTimeout(() => process.exit(0), 0);
-      },
-    },
   ],
 });
