@@ -35,12 +35,20 @@ function SuccessPage() {
       <div className="mx-auto max-w-2xl text-center">
         {/* Header Success */}
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[var(--color-success)]/10">
-          <CheckCircle2 className="h-10 w-10 text-[var(--color-success)]" strokeWidth={1.5} />
+          <CheckCircle2
+            className="h-10 w-10 text-[var(--color-success)]"
+            strokeWidth={1.5}
+          />
         </div>
-        <p className="eyebrow text-[var(--color-success)]">Pembayaran Berhasil</p>
-        <h1 className="mt-4 font-serif text-4xl md:text-5xl">Terima kasih atas pesananmu!</h1>
+        <p className="eyebrow text-[var(--color-success)]">
+          Pembayaran Berhasil
+        </p>
+        <h1 className="mt-4 font-serif text-4xl md:text-5xl">
+          Terima kasih atas pesananmu!
+        </h1>
         <p className="mx-auto mt-5 max-w-md text-base text-muted-foreground">
-          Pesanan kamu sudah kami terima dan sedang diproses. Kami akan segera mengirimkan update melalui WhatsApp.
+          Pesanan kamu sudah kami terima dan sedang diproses. Kami akan segera
+          mengirimkan update melalui WhatsApp.
         </p>
 
         {/* Order Card / Receipt */}
@@ -65,12 +73,18 @@ function SuccessPage() {
                 <Copy className="h-4 w-4" />
               </button>
             </div>
-            {copied && <p className="mt-2 text-xs text-[var(--color-success)]">Nomor pesanan disalin!</p>}
+            {copied && (
+              <p className="mt-2 text-xs text-[var(--color-success)]">
+                Nomor pesanan disalin!
+              </p>
+            )}
           </div>
 
           {/* Bottom section: Next Steps */}
           <div className="px-6 py-6">
-            <h3 className="mb-5 font-serif text-lg font-medium">Langkah Selanjutnya</h3>
+            <h3 className="mb-5 font-serif text-lg font-medium">
+              Langkah Selanjutnya
+            </h3>
             <div className="space-y-6">
               {[
                 {
@@ -94,8 +108,12 @@ function SuccessPage() {
                     {item.step}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-foreground">{item.title}</p>
-                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                    <p className="text-sm font-medium text-foreground">
+                      {item.title}
+                    </p>
+                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -113,7 +131,7 @@ function SuccessPage() {
           </Button>
           <Button variant="outline" asChild className="h-12 px-8">
             <a
-              href={`https://wa.me/6281234567890?text=Halo%20Afidira,%20saya%20ingin%20konfirmasi%20pesanan%20dengan%20nomor%20${orderNumber}`}
+              href={`https://wa.me/6283811049703?text=Halo%20Afidira,%20saya%20ingin%20konfirmasi%20pesanan%20dengan%20nomor%20${orderNumber}`}
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useRef } from "react";
 import { Upload, CheckCircle2, ChevronDown, CreditCard } from "lucide-react";
+import { toast } from "sonner";
 import { useCart, formatPrice } from "@/lib/cart";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -88,11 +89,11 @@ function CheckoutPage() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!selectedBank) {
-      alert("Silakan pilih metode pembayaran");
+      toast.error("Silakan pilih metode pembayaran");
       return;
     }
     if (!transferFile) {
-      alert("Silakan upload bukti transfer");
+      toast.error("Silakan upload bukti transfer");
       return;
     }
     setIsSubmitting(true);

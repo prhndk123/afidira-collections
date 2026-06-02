@@ -58,20 +58,20 @@ function ProductPage() {
           <p className="mt-4 text-2xl">{formatPrice(product.price)}</p>
           <p className="mt-6 max-w-md text-base text-muted-foreground">{product.description}</p>
 
-          <div className="mt-10 flex items-end gap-4">
-            <div>
+          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-end gap-4">
+            <div className="w-full sm:w-auto">
               <label className="eyebrow mb-2 block text-muted-foreground">Jumlah</label>
-              <div className="inline-flex items-center border border-border">
+              <div className="flex sm:inline-flex items-center border border-border w-full sm:w-auto justify-between sm:justify-start">
                 <button
-                  className="flex h-12 w-12 items-center justify-center transition-colors hover:bg-surface"
+                  className="flex h-12 w-16 sm:w-12 items-center justify-center transition-colors hover:bg-surface"
                   onClick={() => setQty(Math.max(1, qty - 1))}
                   aria-label="Kurangi"
                 >
                   <Minus strokeWidth={1.5} className="h-4 w-4" />
                 </button>
-                <span className="w-12 text-center">{qty}</span>
+                <span className="w-full sm:w-12 text-center">{qty}</span>
                 <button
-                  className="flex h-12 w-12 items-center justify-center transition-colors hover:bg-surface"
+                  className="flex h-12 w-16 sm:w-12 items-center justify-center transition-colors hover:bg-surface"
                   onClick={() => setQty(qty + 1)}
                   aria-label="Tambah"
                 >
@@ -80,7 +80,7 @@ function ProductPage() {
               </div>
             </div>
             <button
-              className="btn-primary flex-1"
+              className="btn-primary w-full sm:flex-1 h-12"
               onClick={() => add(product, qty)}
             >
               Tambah ke Keranjang · {formatPrice(product.price * qty)}

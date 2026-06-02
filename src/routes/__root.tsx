@@ -93,6 +93,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 import { registerPWA } from "../lib/pwa";
+import { Toaster } from "sonner";
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -111,6 +112,7 @@ function RootComponent() {
         </main>
         <Footer />
         <CartDrawer />
+        <Toaster position="top-center" richColors />
       </CartProvider>
     </QueryClientProvider>
   );
